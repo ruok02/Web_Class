@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>10-5</title>
+    <style>
+        #clock{
+            display : inline-block;
+	        width : 7em;
+            border: solid 1px black;
+            background-color: aliceblue;
+        }
+    </style>
+    <script>
+        function startClock(){
+            var clock = document.getElementById('clock');
+            timeOut(clock);
+        }
+
+        function timeOut(obj){
+            var now = new Date();
+            obj.innerHTML = now.toLocaleTimeString();
+            setTimeout("timeOut(clock)", 1000);
+        }
+    </script>
+</head>
+<body onload="startClock()">
+    <h3>시계 만들기</h3>
+    <hr>
+    <div id="clock"></div>
+</body>
+</html>

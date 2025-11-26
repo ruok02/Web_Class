@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>10-8</title>
+    <script>
+        var cnt = 10;
+        function startTimer(){
+            var timer = document.getElementById('timer');
+            timer.innerHTML = cnt;
+            if(cnt==0){
+                calc();
+            }
+            else{
+                setTimeout("startTimer()",1000);
+            }
+            cnt--;
+            
+        }
+        function calc(){
+           var question = document.getElementsByClassName('question');
+           var answer = document.getElementsByClassName('answer');
+           var score=  document.getElementById('score');
+           var n = 0;
+
+           for(var i=0;i<question.length;i++){
+               var ans = answer[i].value;
+               var que = question[i].innerHTML;
+
+               if(ans==""||isNaN(ans)){ // 답을 안적거나 숫자가 아닌 경우
+                   question[i].style.textDecoration = "line-through";
+               }
+               else if(eval(que)==parseInt(ans)){   // 정답일 경우
+                   n++;
+                   question[i].style.textDecoration = "none";
+               }
+               else{    // 오답일 경우
+                    question[i].style.textDecoration = "line-through";
+               }
+           }
+           score.innerHTML = n;
+       }
+
+       function re(){
+            var question = document.getElementsByClassName('question');
+            var answer = document.getElementsByClassName('answer');
+            var score=  document.getElementById('score');
+
+            for(var i=0;i<question.length;i++){
+                var a = Math.floor(Math.random()*20)+1;
+                var b = Math.floor(Math.random()*20)+1;
+                var op = Math.floor(Math.random()*4);   // 연산자 선택
+		        var operator;
+                
+		        switch(op) {
+			        case 0 : operator = "+"; break;
+			        case 1 : operator = "-"; break;
+			        case 2 : operator = "*"; break;
+			        case 3 : operator = "/"; break;
+		        }
+
+                question[i].innerHTML = a + operator + b;
+                question[i].style.textDecoration = "none";
+                answer[i].value = "";
+            }
+            score.innerHTML = 0;
+            
+       }
+       
+    </script>
+</head>
+<body onload="startTimer()">
+    <h3>산수 문제 풀기</h3>
+    <span>남은 시간</span>&nbsp;&nbsp;<span id="timer"></span>
+    <hr>
+    <form>
+        <table>
+        <tr><td class="question">5*6</td><td><input class="answer" type="text" size="8"></td></tr>
+        <tr><td class="question">7+5*3</td><td><input class="answer" type="text" size="8"></td></tr>
+        <tr><td class="question">23*2</td><td><input class="answer" type="text" size="8"></td></tr>
+        <tr><td class="question">35-7</td><td><input class="answer" type="text" size="8"></td></tr>
+        <tr><td><button type="button" onclick="re()">다시</button></td>
+            <td><span id="score">0</span></td></tr>
+        </table>
+    </form>
+</body>
+</html>

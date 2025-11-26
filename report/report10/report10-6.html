@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>10-6</title>
+    <style>
+        #clock{
+            display : inline-block;
+	        width : 7em;
+            border: solid 1px black;
+            background-color: aliceblue;
+        }
+    </style>
+    <script>
+        var clockID
+        var n =0;
+
+        function startClock(){ 
+            var clock = document.getElementById('clock');
+            timeOut(clock);
+        }
+
+        function timeOut(obj){
+            var now = new Date();
+            obj.innerHTML = now.toLocaleTimeString();
+            clockID = setTimeout("timeOut(clock)", 1000);
+        }
+
+        function stop(){
+            var clock = document.getElementById('clock');
+            if(n==1){
+                timeOut(clock);
+                clock.style.color = "black";
+                n=0;
+            }
+            else{
+                clearTimeout(clockID);
+                clock.style.color = "gray";
+                n=1;
+            }
+            
+        }
+    </script>
+</head>
+<body onload="startClock()">
+    <h3>시계 만들기</h3>
+    <hr>
+    <div id="clock" onclick="stop()"></div>
+</body>
+</html>
